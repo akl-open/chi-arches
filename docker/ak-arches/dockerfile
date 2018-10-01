@@ -30,7 +30,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
  RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 
  RUN apt-get update && apt-get install -y --no-install-recommends \
-	    apt-get install nodejs \
+	    nodejs \
     && rm -rf /var/lib/apt/lists/*
 
 RUN	npm install -g yarn
