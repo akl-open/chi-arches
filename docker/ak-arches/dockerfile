@@ -11,4 +11,28 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         dirmngr \
         openssh-client \
         git \
+        make \
+        build-essential \
+		libxml2-dev \
+		libjson0-dev \
+		libproj-dev \
+		xsltproc docbook-xsl \
+		docbook-mathml \
+		libgdal1-dev \
+        libpq-dev \
+		libgeos-3.5.0 \
+        zlib1g-dev \
+        python \
+        python-pip \
+        python-setuptools \
 	&& rm -rf /var/lib/apt/lists/*
+
+ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+
+ RUN apt-get update && apt-get install -y --no-install-recommends \
+	    apt-get install nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN	npm install -g yarn
+
+RUN python -m pip install --upgrade pip
