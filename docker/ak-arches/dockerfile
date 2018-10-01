@@ -1,0 +1,14 @@
+FROM ubuntu:xenial 
+
+# build a container to run Arches in a similar way to how th buildpack containers are built
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+		ca-certificates \
+		curl \
+		netbase \
+		wget \
+        gnupg \
+        dirmngr \
+        openssh-client \
+        git \
+	&& rm -rf /var/lib/apt/lists/*
