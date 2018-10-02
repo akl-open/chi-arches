@@ -68,9 +68,9 @@ RUN arches-project create ${APP_NAME}
 
 #TODO: copy any custom src files for akarches from a src dir to the location they need to be
 
-RUN mkdir -p ${APP_ROOT}}/src
+RUN mkdir -p ${APP_ROOT}/src
 
-COPY ./src ${APP_ROOT}}/src
+COPY ./src ${APP_ROOT}/src
 
 EXPOSE 8000
 
