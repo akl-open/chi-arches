@@ -52,9 +52,9 @@ RUN rm -rf /tmp/*
 RUN mkdir -p /opt/services
 WORKDIR /opt/services
 
-# arches should install the version of django it depends on v1.11.x
+# arches does not install the version of django it depends on
 RUN pip install arches==4.3.1 --no-binary :all:
 
-RUN pip install gunicorn==19.9.0 psycopg2-binary==2.7.5 whitenoise==4.1
+RUN pip install django==1.11.16 gunicorn==19.9.0 psycopg2-binary==2.7.5 whitenoise==4.1
 
 RUN arches-project create akarches
