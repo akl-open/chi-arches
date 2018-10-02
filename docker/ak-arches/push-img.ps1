@@ -2,6 +2,6 @@
 param([string]$usr = "")
 docker login --username $usr
 
-docker tag aklopen/akarches:4.3.1-01
+docker tag aklopen/akarches aklopen/akarches:4.3.1-01
 
 docker push aklopen/akarches
