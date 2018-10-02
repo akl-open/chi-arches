@@ -1,6 +1,6 @@
 FROM ubuntu:xenial 
 
-# build a container to run Arches in a similar way to how th buildpack containers are built
+# build a container to run Arches in a similar way to how the buildpack containers are built
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		ca-certificates \
@@ -36,3 +36,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN	npm install -g yarn
 
 RUN python -m pip install --upgrade pip
+
+RUN mkdir -p /opt/services
+WORKDIR /opt/services
+
+# arches should install the version of django it depends on v1.11.x
+RUN pip install arches==4.3.1 --no-binary :all:
+
+RUN pip install gunicorn==19.9.0 psycopg2-binary==2.7.5 whitenoise==4.1
+
+RUN arches-project create akarches
