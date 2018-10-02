@@ -29,4 +29,13 @@ Committing to Docker Hub
 5. Open browser - http://localhost:80
 
 
+## Allowing connection to Postgresql in Azure
 
+1. Open Windows Firewall
+2. Click on Outbound Rules (left tree node).
+3. Click on New Rule.. (right menu - Actions).
+4. Choose Port.
+5. Choose TCP.  Enter '5432' in specific ports.
+6. Choose Allow the connection.
+7. Check all boxes.
+8. Name permission
