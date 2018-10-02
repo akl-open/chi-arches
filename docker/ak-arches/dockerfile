@@ -1,9 +1,9 @@
 FROM ubuntu:xenial 
 
 ## Setting default environment variables
-ENV WEB_ROOT=/web_root
-ENV AK_NAME=akarches
-ENV AK_ROOT=${WEB_ROOT}/AK_NAME
+ENV WEB_ROOT=/app/web
+ENV APP_NAME=akarches
+ENV APP_ROOT=${WEB_ROOT}/${APP_NAME}
 
 RUN mkdir ${WEB_ROOT}
 
@@ -64,17 +64,13 @@ RUN pip install arches==4.3.1 --no-binary :all:
 
 RUN pip install django==1.11.16 gunicorn==19.9.0 psycopg2-binary==2.7.5 whitenoise==4.1
 
-RUN arches-project create akarches
-
-RUN pwd
-RUN ls
+RUN arches-project create ${APP_NAME}
 
 #TODO: copy any custom src files for akarches from a src dir to the location they need to be
 
-RUN mkdir -p ${AK_ROOT}/src
+RUN mkdir -p ${APP_ROOT}}/src
 
-COPY ./src ${AK_ROOT}/src
-
+COPY ./src ${APP_ROOT}}/src
 
 EXPOSE 8000
 
