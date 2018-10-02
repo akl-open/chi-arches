@@ -1,2 +1,2 @@
 # build image
-docker image build -t aklopen/akarches:latest .
+docker image build -t aklopen/akarches .
