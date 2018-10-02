@@ -1,0 +1,83 @@
+FROM ubuntu:xenial 
+
+RUN mkdir -p /opt/services
+## Setting default environment variables
+ENV WEB_ROOT=/opt/services
+ENV AK_NAME=akarches
+ENV AK_ROOT=${WEB_ROOT}/AK_NAME
+
+# build a container to run Arches in a similar way to how the buildpack containers are built
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+		ca-certificates \
+		curl \
+		netbase \
+		wget \
+        gnupg \
+        dirmngr \
+        openssh-client \
+        git \
+        make \
+        build-essential \
+		libxml2-dev \
+		libjson0-dev \
+		libproj-dev \
+		xsltproc docbook-xsl \
+		docbook-mathml \
+		libgdal1-dev \
+        libpq-dev \
+		libgeos-3.5.0 \
+        zlib1g-dev \
+        python \
+        python-pip \
+        python-setuptools \
+	&& rm -rf /var/lib/apt/lists/*
+
+ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+
+ RUN apt-get update && apt-get install -y --no-install-recommends \
+	    nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN	npm install -g yarn
+
+RUN python -m pip install --upgrade pip
+
+
+## Install Postgresql client
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" >> /etc/apt/sources.list.d/pgdg.list &&\
+	wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - &&\
+	apt-get update -y &&\
+	apt-get install -y postgresql-client-9.6
+
+
+## Clean up obsolete folders and packages
+RUN rm -rf /var/lib/apt/lists/*
+RUN rm -rf /tmp/*
+
+
+WORKDIR $WEB_ROOT
+
+RUN pwd
+
+# arches does not install the version of django it depends on
+RUN pip install arches==4.3.1 --no-binary :all:
+
+RUN pip install django==1.11.16 gunicorn==19.9.0 psycopg2-binary==2.7.5 whitenoise==4.1
+
+RUN arches-project create akarches
+
+# copy any custom src files for akarches from current dir to the location they need to be
+COPY ./src ${AK_ROOT}/src
+
+
+EXPOSE 8000
+
+COPY init.sh /usr/local/bin/
+	
+RUN chmod u+x /usr/local/bin/init.sh
+# Set entrypoint
+ENTRYPOINT ["init.sh"]
+
+# TODO get init tidied up then uncomment below
+#CMD ["run_arches"]
