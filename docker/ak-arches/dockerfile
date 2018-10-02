@@ -5,7 +5,7 @@ ENV WEB_ROOT=/app/web
 ENV APP_NAME=akarches
 ENV APP_ROOT=${WEB_ROOT}/${APP_NAME}
 
-RUN mkdir ${WEB_ROOT}
+RUN mkdir -p ${WEB_ROOT}
 
 # build a container to run Arches in a similar way to how the buildpack containers are built
 
