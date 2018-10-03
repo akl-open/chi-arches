@@ -156,9 +156,9 @@ db_exists() {
 
 	# Return 0 (= true) if database exists
 	if [[ ${count} > 0 ]]; then
-		return 1
-	else
 		return 0
+	else
+		return 1
 	fi
 }
 

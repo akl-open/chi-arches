@@ -3,7 +3,7 @@ services:
 
     arches:
       container_name: arches
-      image: lawrencegohak/chi_lg:0.0.4
+      image: aklopen/chiarches:latest
       build:
         context: .
         dockerfile: ./Dockerfile
@@ -12,13 +12,13 @@ services:
         - arches-log:/arches/arches/logs
         - arches-static:/static_root
       environment:
-        - ARCHES_PROJECT=chi_arches
+        - ARCHES_PROJECT=chia
         - INSTALL_DEFAULT_GRAPHS=True
         - INSTALL_DEFAULT_CONCEPTS=True
         - PGUSERNAME=postgres
-        - PGPASSWORD=postgres
+        - PGPASSWORD=<pwd>
         - PGDBNAME=arches
-        - PGHOST=db
+        - PGHOST=<ip address>
         - PGPORT=5432
         - COUCHDB_HOST=couchdb
         - COUCHDB_PORT=5984
@@ -26,7 +26,7 @@ services:
         - COUCHDB_PASS=admin
         - ESHOST=elasticsearch
         - ESPORT=9200
-        - ELASTICSEARCH_PREFIX=chi_arches
+        - ELASTICSEARCH_PREFIX=chia
         - DJANGO_MODE=PROD
         - DJANGO_DEBUG=False
         - DJANGO_REMOTE_DEBUG=False
@@ -70,7 +70,7 @@ services:
       ports:
         - '5432:5432'
       environment:
-        - POSTGRES_PASSWORD=postgres
+        - POSTGRES_PASSWORD=<pwd>
         - TZ=PST
 
     couchdb:
