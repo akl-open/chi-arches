@@ -97,7 +97,7 @@ ENTRYPOINT ["/docker/entrypoint.sh"]
 CMD ["run_arches"]
 
 # Expose port 8000
-EXPOSE 8000
+EXPOSE 8000 2222
 
 
 # Set default workdir
