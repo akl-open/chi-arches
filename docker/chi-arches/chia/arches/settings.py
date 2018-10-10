@@ -287,10 +287,12 @@ INSTALLED_APPS = (
     #'debug_toolbar'
 )
 
+#Added whitenoise for static files
 MIDDLEWARE = [
     #'debug_toolbar.middleware.DebugToolbarMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     #'arches.app.utils.middleware.TokenMiddleware',
     #'django.middleware.locale.LocaleMiddleware',
