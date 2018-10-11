@@ -69,6 +69,11 @@ RUN pip install django==1.11.16 gunicorn==19.9.0 psycopg2-binary==2.7.5 whitenoi
 	python-dateutil==2.7.3 edtf==4.0.1 elasticsearch==5.5.3 pyprind==2.11.2 PyLD[requests]==1.0.3 \
 	TileStache==1.51.13 couchdb==1.2 python-jose==2.0.2 pycryptodome==3.6.6
 
+# python-memcached==1.59
+# mapbox-vector-tile==1.2.0
+# mapnik==0.1
+# SPARQLWrapper==1.8.2
+
 
 RUN arches-project create ${APP_NAME}
 

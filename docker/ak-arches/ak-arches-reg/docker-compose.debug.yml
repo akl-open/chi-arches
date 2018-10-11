@@ -1,0 +1,10 @@
+version: '2.1'
+
+services:
+  ak-arches:
+    image: ak-arches
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
