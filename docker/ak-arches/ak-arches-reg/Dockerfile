@@ -3,7 +3,7 @@
 # OS Support also exists for jessie & stretch (slim and full).
 # See https://hub.docker.com/r/library/python/ for all supported Python
 # tags from Docker Hub.
-FROM python:alpine
+FROM aklopen/akarches:4.3.1-01
 
 # If you prefer miniconda:
 #FROM continuumio/miniconda3
@@ -11,12 +11,12 @@ FROM python:alpine
 LABEL Name=ak-arches Version=0.0.1
 EXPOSE 8000
 
-WORKDIR /app
-ADD . /app
+#WORKDIR /app
+#ADD . /app
 
 # Using pip:
-RUN python3 -m pip install -r requirements.txt
-CMD ["python3", "-m", "ak-arches"]
+#RUN python3 -m pip install -r requirements.txt
+#CMD ["python3", "-m", "ak-arches"]
 
 # Using pipenv:
 #RUN python3 -m pip install pipenv
