@@ -21,6 +21,12 @@ PyLD[requests]==1.0.3
 pyprind==2.11.2
 pycryptodome<4.0.0,>=3.3.1
 whitenoise==4.1
+django-storages[azure]==1.7.1
+azure==4.0.0
+azure-storage==0.20.0
+azure-servicebus==0.21.0
+azure-mgmt==4.0.0
+azure-servicemanagement-legacy==0.20.6
 
 # Leave the following line commented so that pip install will ignore this
 # The installer uses the following line to download the proper version of ES
