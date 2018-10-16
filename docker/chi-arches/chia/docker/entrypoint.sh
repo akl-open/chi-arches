@@ -333,6 +333,10 @@ run_arches() {
 	fi
 
 	run_custom_scripts
+    
+    if [[ "${DJANGO_MODE}" == "PROD" ]] && [[ ! -z ${AZURE_ACCOUNT_NAME} ]]; then
+        fix_static_paths
+    fi
 
 	if [[ "${DJANGO_MODE}" == "DEV" ]]; then
 		run_django_server
@@ -358,7 +362,10 @@ run_tests() {
 	fi
 }
 
-
+fix_static_paths() {
+    echo "Running: python manage.py azure_storage_service fix_static_paths"
+    python manage.py azure_storage_service fix_static_paths
+}
 
 
 ### Starting point ###
