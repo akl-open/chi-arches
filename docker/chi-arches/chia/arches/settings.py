@@ -176,12 +176,20 @@ LOCALE_PATHS = (
 # calendars according to the current locale
 USE_L10N = True
 
+# Azure File Storage
+DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+STATICFILES_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+AZURE_ACCOUNT_NAME = ''
+AZURE_ACCOUNT_KEY = ''
+AZURE_CONTAINER = ''
+
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 MEDIA_ROOT =  os.path.join(ROOT_DIR)
 
 # URL that handles the media served from MEDIA_ROOT, used for managing stored files.
 # It must end in a slash if set to a non-empty value.
-MEDIA_URL = '/files/'
+#MEDIA_URL = '/files/'
+MEDIA_URL = '' #Add blob url
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
