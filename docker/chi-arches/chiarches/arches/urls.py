@@ -25,7 +25,6 @@ from arches.app.views.admin import ReIndexResources
 from arches.app.views.graph import GraphDesignerView, GraphSettingsView, GraphDataView, GraphManagerView, DatatypeTemplateView, CardView, FunctionManagerView, PermissionDataView
 from arches.app.views.resource import ResourceEditorView, ResourceListView, ResourceData, ResourceCards, ResourceReportView, RelatedResourcesView, ResourceDescriptors, ResourceEditLogView, ResourceTiles
 from arches.app.views.resource import NewResourceEditorView
-from arches.app.views.plugin import PluginView
 from arches.app.views.concept import RDMView
 from arches.app.views.user import UserManagerView
 from arches.app.views.tile import TileData
@@ -136,14 +135,12 @@ urlpatterns = [
     url(r'^feature_popup_content$', main.feature_popup_content, name="feature_popup_content"),
     url(r'^user$', UserManagerView.as_view(), name="user_profile_manager"),
     url(r'^user/get_user_names$', UserManagerView.as_view(action='get_user_names'), name="get_user_names"),
-    url(r'^mobile_survey_resources/(?P<surveyid>%s)/resources$' % uuid_regex, MobileSurveyResources.as_view(), name='mobile_survey_resources'),
-    url(r'^mobile_survey_manager/*', MobileSurveyManagerView.as_view(), name="mobile_survey_manager"),
+    # url(r'^mobile_survey_resources/(?P<surveyid>%s)/resources$' % uuid_regex, MobileSurveyResources.as_view(), name='mobile_survey_resources'),
+    # url(r'^mobile_survey_manager/*', MobileSurveyManagerView.as_view(), name="mobile_survey_manager"),
     url(r'^couchdb/(?P<path>.*)$', api.CouchdbProxy.as_view()),
     url(r'^surveys$', api.Surveys.as_view(), name='surveys'),
     url(r'^resources/(?P<resourceid>%s|())$' % uuid_regex, api.Resources.as_view(), name='resources'),
     url(r'^rdm/concepts/(?P<conceptid>%s|())$' % uuid_regex, api.Concepts.as_view(), name='concepts'),
-    url(r'^plugins/(?P<pluginid>%s)$' % uuid_regex, PluginView.as_view(), name='plugins'),
-    url(r'^plugins/(?P<slug>[-\w]+)$', PluginView.as_view(), name='plugins'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

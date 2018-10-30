@@ -171,7 +171,7 @@ define([
 
             self.dirty = ko.computed(function() {
                 return self.json() !== self._node();
-            });
+            }).extend({ rateLimit: 100 });
 
             self.isCollector = ko.computed(function() {
                 return self.nodeid === self.nodeGroupId();
@@ -315,9 +315,17 @@ define([
          */
         toggleIsCollector: function() {
             var nodeGroupId = this.nodeid;
+            var self = this;
             if (this.isCollector()) {
                 nodeGroupId = this.graph.getParentNode(this).nodeGroupId();
             }
+            var children  = this.graph.getChildNodesAndEdges(this).nodes;
+            children.forEach(function(child) {
+                if (child.nodeGroupId() === self.nodeGroupId()) {
+                    child.nodeGroupId(nodeGroupId);
+                    child._node(child.json());
+                }
+            });
             this.nodeGroupId(nodeGroupId);
         },
 
