@@ -25,7 +25,6 @@ from django.dispatch import receiver
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
-from django.core.validators import validate_slug
 
 # can't use "arches.app.models.system_settings.SystemSettings" because of circular refernce issue
 # so make sure the only settings we use in this file are ones that are static (fixed at run time)
@@ -928,24 +927,3 @@ class MapMarker(models.Model):
     class Meta:
         managed = True
         db_table = 'map_markers'
-
-
-class Plugin(models.Model):
-    pluginid = models.UUIDField(primary_key=True, default=uuid.uuid1)  # This field type is a guess.
-    name = models.TextField()
-    icon = models.TextField(default=None)
-    component = models.TextField()
-    componentname = models.TextField()
-    config = JSONField(blank=True, null=True, db_column='config')
-    slug = models.TextField(validators=[validate_slug], unique=True, null=True)
-    sortorder = models.IntegerField(blank=True, null=True, default=None)
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        managed = True
-        db_table = 'plugins'
-        permissions = (
-            ('view_plugin', 'View plugin'),
-        )

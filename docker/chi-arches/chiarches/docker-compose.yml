@@ -3,7 +3,7 @@ services:
 
     arches:
       container_name: arches
-      image: archesproject/arches:latest
+      image: aklopendev/chiarches:4.3.1-04
       build:
         context: .
         dockerfile: ./Dockerfile
@@ -12,55 +12,31 @@ services:
         - arches-log:/arches/arches/logs
         - arches-static:/static_root
       environment:
-        # - ARCHES_PROJECT=insert_project_name
+        - ARCHES_PROJECT=chiarches
         - INSTALL_DEFAULT_GRAPHS=True
         - INSTALL_DEFAULT_CONCEPTS=True
-        - PGUSERNAME=postgres
-        - PGPASSWORD=postgres
-        - PGDBNAME=arches
-        - PGHOST=db
+        - PGUSERNAME=sa@chiarches-tst-db-svr
+        - PGPASSWORD=~Pa55w0rd
+        - PGDBNAME=arches_tst2
+        - PGHOST=chiarches-tst-db-svr.postgres.database.azure.com
         - PGPORT=5432
         - COUCHDB_HOST=couchdb
         - COUCHDB_PORT=5984
         - COUCHDB_USER=admin
-        - COUCHDB_PASS=password
+        - COUCHDB_PASS=admin
         - ESHOST=elasticsearch
         - ESPORT=9200
-        # - ELASTICSEARCH_PREFIX=insert_project_name
+        - ELASTICSEARCH_PREFIX=chiarches
         - DJANGO_MODE=PROD
         - DJANGO_DEBUG=False
-        # - DJANGO_REMOTE_DEBUG=False
+        - DJANGO_REMOTE_DEBUG=False
         - DOMAIN_NAMES=localhost
-        - PYTHONUNBUFFERED=0
         - TZ=PST
       ports:
-        - '8000:8000'
+        - '80:8000'
       depends_on:
         - db
         - elasticsearch
-        - couchdb
-
-    nginx:
-      container_name: nginx
-      image: cvast/cvast-nginx:1.2.0
-      restart: unless-stopped
-      ports:
-        - '80:80'
-        - '443:443'
-      volumes:
-        - arches-static:/www/static
-        - letsencrypt-acme-challenge:/var/www
-        - letsencrypt:/etc/letsencrypt
-      environment:
-        - NGINX_PROXY_MODE=local
-        - NGINX_PROTOCOL=http
-        - LOCAL_PROXY_HOST=arches
-        - LOCAL_PROXY_PORT=8000
-        - DOMAIN_NAMES=localhost
-        - PUBLIC_MODE=False
-        - TZ=PST
-      depends_on:
-        - arches
 
     db:
       container_name: db
@@ -71,24 +47,12 @@ services:
       ports:
         - '5432:5432'
       environment:
-        - POSTGRES_PASSWORD=postgres
+        - POSTGRES_PASSWORD=~Pa55w0rd
         - TZ=PST
-
-    couchdb:
-      container_name: couchdb
-      image: couchdb:2.1.1
-      ports:
-        - "5984:5984"
-      environment:
-        COUCHDB_USER: admin
-        COUCHDB_PASSWORD: password
-      volumes:
-        - couchdb-data:/usr/local/var/lib/couchdb
-        - couchdb-log:/usr/local/var/log/couchdb
 
     elasticsearch:
       container_name: elasticsearch
-      image: elasticsearch:5.2
+      image: elasticsearch:5.6
       volumes:
         - elasticsearch-data:/usr/share/elasticsearch/data
       ports:
@@ -97,30 +61,10 @@ services:
       environment:
         - TZ=PST
 
-    letsencrypt:
-      container_name: letsencrypt
-      image: cvast/cvast-letsencrypt:1.1
-      volumes:
-        - letsencrypt-acme-challenge:/var/www
-        - letsencrypt:/etc/letsencrypt
-        - letsencrypt-log:/var/log/letsencrypt
-      command: get_certificate
-      environment:
-        - MODE=regular
-        - LETSENCRYPT_EMAIL=info@example.com
-        - DOMAIN_NAMES=localhost
-        - PRODUCTION_MODE=False
-        - PERSISTENT_MODE=True
-        - TZ=PST
 
 volumes:
     arches-log:
     arches-static:
-    couchdb-data:
-    couchdb-log:
     postgres-data:
     postgres-log:
     elasticsearch-data:
-    letsencrypt:
-    letsencrypt-log:
-    letsencrypt-acme-challenge:
