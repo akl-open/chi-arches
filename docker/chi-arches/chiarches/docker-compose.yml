@@ -1,0 +1,70 @@
+version: '2'
+services:
+
+    arches:
+      container_name: arches
+      image: aklopendev/chiarches:4.3.1-04
+      build:
+        context: .
+        dockerfile: ./Dockerfile
+      command: run_arches
+      volumes:
+        - arches-log:/arches/arches/logs
+        - arches-static:/static_root
+      environment:
+        - ARCHES_PROJECT=chiarches
+        - INSTALL_DEFAULT_GRAPHS=True
+        - INSTALL_DEFAULT_CONCEPTS=True
+        - PGUSERNAME=sa@chiarches-tst-db-svr
+        - PGPASSWORD=~Pa55w0rd
+        - PGDBNAME=arches_tst2
+        - PGHOST=chiarches-tst-db-svr.postgres.database.azure.com
+        - PGPORT=5432
+        - COUCHDB_HOST=couchdb
+        - COUCHDB_PORT=5984
+        - COUCHDB_USER=admin
+        - COUCHDB_PASS=admin
+        - ESHOST=elasticsearch
+        - ESPORT=9200
+        - ELASTICSEARCH_PREFIX=chiarches
+        - DJANGO_MODE=PROD
+        - DJANGO_DEBUG=False
+        - DJANGO_REMOTE_DEBUG=False
+        - DOMAIN_NAMES=localhost
+        - TZ=PST
+      ports:
+        - '80:8000'
+      depends_on:
+        - db
+        - elasticsearch
+
+    db:
+      container_name: db
+      image: mdillon/postgis:9.6-alpine
+      volumes:
+          - postgres-data:/var/lib/postgresql/data
+          - postgres-log:/var/log/postgresql
+      ports:
+        - '5432:5432'
+      environment:
+        - POSTGRES_PASSWORD=~Pa55w0rd
+        - TZ=PST
+
+    elasticsearch:
+      container_name: elasticsearch
+      image: elasticsearch:5.6
+      volumes:
+        - elasticsearch-data:/usr/share/elasticsearch/data
+      ports:
+        - "9200:9200"
+        - "9300:9300"
+      environment:
+        - TZ=PST
+
+
+volumes:
+    arches-log:
+    arches-static:
+    postgres-data:
+    postgres-log:
+    elasticsearch-data:
