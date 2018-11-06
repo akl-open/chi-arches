@@ -7,6 +7,12 @@ FROM aklopen/akarches:4.3.1-01
 
 # If you prefer miniconda:
 #FROM continuumio/miniconda3
+WORKDIR ${APP_ROOT}/${APP_NAME}
+
+
+
+ADD settings_local.py ${APP_ROOT}/${APP_NAME}/
+
 
 LABEL Name=ak-arches Version=0.0.1
 EXPOSE 8000
