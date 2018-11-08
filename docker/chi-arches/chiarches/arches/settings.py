@@ -127,11 +127,11 @@ RESOURCE_EDITOR_GROUPS = (
 )
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  #<-- Only need to uncomment this for testing without an actual email server
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_HOST_USER = 'xxxx@xxx.com'
-# EMAIL_HOST_PASSWORD = 'xxxxxxx'
-# EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'chi.arches@gmail.com'
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 587
 
 POSTGIS_VERSION = (2, 0, 0)
 
@@ -146,8 +146,8 @@ USE_I18N = True
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
-USE_TZ = False
+TIME_ZONE = 'Pacific/Auckland'
+USE_TZ = True
 
 # Default Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -179,13 +179,21 @@ USE_L10N = True
 # Azure File Storage
 DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-AZURE_ACCOUNT_NAME = 'aklcchiarcheststblob'
-AZURE_ACCOUNT_KEY = 'bSzpStWoybHqlSNhCo8QOSU/SHyjsB3I3ocETZvO3ORGZtnDJf6JIZdtpTmvi7yNyuJpaOfTaw+Aud3zMLEVwQ=='
-AZURE_CONTAINER = 'aklc-chiarches-tst-blobcon'
+#PROD
+AZURE_ACCOUNT_NAME = ''
+AZURE_ACCOUNT_KEY = ''
+AZURE_CONTAINER = ''
+#DEV
+#AZURE_ACCOUNT_NAME = ''
+#AZURE_ACCOUNT_KEY = ''
+#AZURE_CONTAINER = ''
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 #MEDIA_ROOT =  os.path.join(ROOT_DIR)
-MEDIA_ROOT = 'https://aklcchiarcheststblob.blob.core.windows.net/aklc-chiarches-tst-blobcon/'
+#PROD
+MEDIA_ROOT = ''
+#DEV
+#MEDIA_ROOT = ''
 
 # URL that handles the media served from MEDIA_ROOT, used for managing stored files.
 # It must end in a slash if set to a non-empty value.
@@ -375,9 +383,13 @@ USE_LIVERELOAD = False
 LIVERELOAD_PORT = 35729 # usually only used in development, 35729 is default for livereload browser extensions
 
 ENABLE_CAPTCHA = True
-# RECAPTCHA_PUBLIC_KEY = ''
-# RECAPTCHA_PRIVATE_KEY = ''
-# RECAPTCHA_USE_SSL = False
+#DEV
+#RECAPTCHA_PUBLIC_KEY = ''
+#RECAPTCHA_PRIVATE_KEY = ''
+#PROD
+RECAPTCHA_PUBLIC_KEY = ''
+RECAPTCHA_PRIVATE_KEY = ''
+RECAPTCHA_USE_SSL = True
 NOCAPTCHA = True
 # RECAPTCHA_PROXY = 'http://127.0.0.1:8000'
 
