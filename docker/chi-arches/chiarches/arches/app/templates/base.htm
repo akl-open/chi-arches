@@ -57,6 +57,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 {% block javascript %}
     <script src="{{ STATIC_URL }}packages/requirejs/require.js"></script>
+    <script>
+        requirejs.config({ waitSeconds: 60 });
+        requirejs(["main"]);
+    </script>
 
     {% block pre_require_js %}
     {% endblock pre_require_js %}
