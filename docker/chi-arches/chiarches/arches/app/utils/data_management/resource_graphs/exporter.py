@@ -168,7 +168,7 @@ def create_mapping_configuration_file(graphid, include_concepts=True, data_dir=N
             try:
                 relation_concepts = OrderedDict(sorted(get_values(Concept().get('00000000-0000-0000-0000-000000000005', include_subconcepts=True, semantic=False), {}).items(), key=itemgetter(1)))
             except:
-                relations_concepts = 'You do not appear to have values for resource to resource relationships in your rdm.'
+                relation_concepts = 'You do not appear to have values for resource to resource relationships in your rdm.'
             values['Resource to Resource Relationship Types'] = relation_concepts
 
 
