@@ -163,7 +163,7 @@ class CsvWriter(Writer):
 
         if self.single_file != True:
             dest = StringIO()
-            csvwriter = csv.DictWriter(dest, delimiter=',', fieldnames=csv_header, encoding='utf-8-sig')
+            csvwriter = csv.DictWriter(dest, delimiter=',', fieldnames=csv_header)
             csvwriter.writeheader()
             csvs_for_export.append({'name':csv_name, 'outputfile': dest})
             for csv_record in csv_records:
