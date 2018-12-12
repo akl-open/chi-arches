@@ -247,7 +247,10 @@ def export(request, conceptid):
         depth_limit=None, up_depth_limit=None)]
 
     skos = SKOSWriter()
-    return HttpResponse(skos.write(concept_graphs, format="pretty-xml"), content_type="application/xml")
+    response = HttpResponse(skos.write(concept_graphs, format="pretty-xml"), content_type="application/xml")
+    response['Content-Disposition'] = 'attachment; filename="%s.xml"' % (conceptid)
+
+    return response
 
 def export_collections(request):
     concept_graphs = []
@@ -257,7 +260,10 @@ def export_collections(request):
             depth_limit=None, up_depth_limit=None, semantic=False))
 
     skos = SKOSWriter()
-    return HttpResponse(skos.write(concept_graphs, format="pretty-xml"), content_type="application/xml")
+    response = HttpResponse(skos.write(concept_graphs, format="pretty-xml"), content_type="application/xml")
+    response['Content-Disposition'] = 'attachment; filename="collection.xml"'
+
+    return response
 
 def get_concept_collections(request):
     lang = request.GET.get('lang', settings.LANGUAGE_CODE)

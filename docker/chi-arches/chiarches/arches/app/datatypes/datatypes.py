@@ -217,9 +217,15 @@ class DateDataType(BaseDataType):
 
     def transform_export_values(self, value, *args, **kwargs):
         if hasattr(settings, 'DATE_IMPORT_EXPORT_FORMAT'):
-            v = datetime.strptime(value, '%Y-%m-%d')
-            #value = datetime.strftime(v, settings.DATE_IMPORT_EXPORT_FORMAT)
-            value = '{0.year:4d}-{0.month:02d}-{0.day:02d}'.format(v)
+            if len(value) == 4:
+                v = datetime.strptime(value, '%Y')
+                value = '{0.year:4d}'.format(v)
+            elif len(value) == 7:
+                v = datetime.strptime(value, '%Y-%m')
+                value = '{0.year:4d}-{0.month:02d}'.format(v)
+            else:
+                v = datetime.strptime(value, '%Y-%m-%d')
+                value = '{0.year:4d}-{0.month:02d}-{0.day:02d}'.format(v)
         return value
 
     def append_to_document(self, document, nodevalue, nodeid, tile, provisional=False):

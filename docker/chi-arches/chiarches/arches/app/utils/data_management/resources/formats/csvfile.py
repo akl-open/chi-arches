@@ -20,6 +20,7 @@ from arches.app.datatypes.datatypes import DataTypeFactory
 from django.db import transaction
 from django.db.models import Q
 from django.utils.translation import ugettext as _
+from django.utils.encoding import smart_str
 
 try:
     from cStringIO import StringIO
@@ -177,7 +178,7 @@ class CsvWriter(Writer):
             for csv_record in other_group_records:
                 if 'populated_node_groups' in csv_record:
                     del csv_record['populated_node_groups']
-                csvwriter.writerow({k:str(v) for k,v in csv_record.items()})
+                csvwriter.writerow({k:smart_str(v) for k,v in csv_record.items()})
         elif self.single_file == True:
             all_records = csv_records + other_group_records
             all_records = sorted(all_records, key=lambda k: k['ResourceID'])
@@ -188,7 +189,7 @@ class CsvWriter(Writer):
             for csv_record in all_records:
                 if 'populated_node_groups' in csv_record:
                     del csv_record['populated_node_groups']
-                csvwriter.writerow({k:str(v) for k,v in csv_record.items()})
+                csvwriter.writerow({k:smart_str(v) for k,v in csv_record.items()})
 
         if self.graph_id != None:
             csvs_for_export = csvs_for_export + self.write_resource_relations(file_name=self.file_name)
