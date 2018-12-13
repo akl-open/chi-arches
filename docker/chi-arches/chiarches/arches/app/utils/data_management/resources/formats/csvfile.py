@@ -51,7 +51,7 @@ class ConceptLookup():
 
     def lookup_labelid_from_label(self, value, collectionid):
         ret = []
-        for val in csv.reader([value], delimiter=',', quotechar='"'):
+        for val in csv.reader([smart_str(value)], delimiter=',', quotechar='"'):
             for v in val:
                 v = v.strip()
                 try:
