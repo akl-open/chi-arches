@@ -20,7 +20,7 @@ django-oauth-toolkit==1.1.2
 PyLD[requests]==1.0.3
 pyprind==2.11.2
 pycryptodome<4.0.0,>=3.3.1
-urllib3==1.21.1
+urllib3==1.26.5
 whitenoise==4.1
 django-storages==1.7.1
 django-storages[azure]==1.7.1
